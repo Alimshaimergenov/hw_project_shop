@@ -22,7 +22,8 @@ def product_detail_view(request, id):
         product = Product.objects.get(id=id)
 
         contex = {
-            'product': product
+            'product': product,
+            'reviews': product.review_set.all()
         }
 
         return render(request, 'products/detail.html', context=contex)

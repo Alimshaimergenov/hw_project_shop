@@ -17,6 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from products.views import main_page_view, products_view, product_detail_view
+from django.conf.urls.static import static
+from hwproject import settings
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,3 +27,5 @@ urlpatterns = [
     path('products/', products_view),
     path('products/<int:id>', product_detail_view)
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

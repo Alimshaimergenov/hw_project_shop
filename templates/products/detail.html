@@ -1,17 +1,52 @@
 {% extends 'layouts/index.html' %}
 
 {% block content %}
+    <style type="text/css">
+        .product_block {
+            width: 80%;
+            margin-left: 10%;
+            margin-top: 50px;
+        }
+        .product_block > img{
+            width: 100%;
+        }
+        .dates{
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .reviews{
+            margin-top: 30px;
+        }
+        .review_block{
+            background: #242b2e;
+            margin-bottom: 20px;
+            color: #ffffff;
+            padding: 10px;
+        }
+    </style>
+
     <div class="product_block">
-        <div class="info">
-            <h1>{{ product.title }}</h1>
-            <h4>{{ product.description }}</h4>
-            <h5>Rate: {{ product.rate }}</h5>
-            <div class="date">
-                <h5>Created Date {{ product.created_date }}</h5>
-                <h5>Modified Date {{ post.modified_date }}</h5>
+            {% if products.image %}
+                <img src="/media/{{ products.image }}" alt="">
+            {% else %}
+                <img src="https://i1.wp.com/gelatologia.com/wp-content/uploads/2020/07/placeholder.png?ssl=1" alt="">
+            {% endif %}
+            <div class="info">
+                <h1>{{ products.title }}</h1>
+                <h4>{{ products.description }}</h4>
+                <h5>Rate: {{ products.rate }}</h5>
+                <div class="dates">
+                    <h5>Created Date: {{ products.created_data }}</h5>
+                    <h5>Modified Date: {{ products.modified_data }}</h5>
+                </div>
             </div>
-
+        <div class="reviews">
+            {% for review in reviews %}
+                <div class="review_block">
+                    <h5>{{ review.text }}</h5>
+                </div>
+            {% endfor %}
         </div>
-
     </div>
 {% endblock %}
