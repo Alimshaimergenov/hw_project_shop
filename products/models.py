@@ -17,7 +17,7 @@ class Product(models.Model):
 
 class Review(models.Model):
     text = models.CharField(max_length=256)
-    post = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.text

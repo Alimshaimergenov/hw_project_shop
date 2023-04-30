@@ -1,52 +1,62 @@
 {% extends 'layouts/index.html' %}
+{% load static %}
 
 {% block content %}
     <style type="text/css">
-        .product_block {
+        .product {
             width: 80%;
             margin-left: 10%;
-            margin-top: 50px;
+
         }
-        .product_block > img{
-            width: 100%;
+        .product > img {
+            width: 30%;
+            margin-left: 33%;
         }
-        .dates{
-            margin-top: 20px;
+        .dates {
             display: flex;
             justify-content: space-between;
+            margin-top: 40px;
         }
-        .reviews{
-            margin-top: 30px;
+        .comments {
+            margin-top: 20px;
         }
-        .review_block{
-            background: #242b2e;
-            margin-bottom: 20px;
-            color: #ffffff;
+        .comment_block {
             padding: 10px;
+            background: #1b1b1b;
+            color: white;
+            margin-bottom: 20px;
+        }
+        .comments_title {
+            font-size: 30px;
+            font-weight: bold;
+            margin-top: 40px;
         }
     </style>
-
-    <div class="product_block">
-            {% if products.image %}
-                <img src="/media/{{ products.image }}" alt="">
-            {% else %}
-                <img src="https://i1.wp.com/gelatologia.com/wp-content/uploads/2020/07/placeholder.png?ssl=1" alt="">
-            {% endif %}
-            <div class="info">
-                <h1>{{ products.title }}</h1>
-                <h4>{{ products.description }}</h4>
-                <h5>Rate: {{ products.rate }}</h5>
-                <div class="dates">
-                    <h5>Created Date: {{ products.created_data }}</h5>
-                    <h5>Modified Date: {{ products.modified_data }}</h5>
-                </div>
-            </div>
-        <div class="reviews">
-            {% for review in reviews %}
-                <div class="review_block">
-                    <h5>{{ review.text }}</h5>
+    <div class="product">
+        {% if product.image %}
+            <img class="product_image" src="/media/{{ product.image }}" alt="">
+        {% else %}
+            <img src="https://i1.wp.com/gelatologia.com/wp-content/uploads/2020/07/placeholder.png?ssl=1" alt="">
+        {% endif %}
+        <h1>{{ product.title }}</h1>
+        <h5>{{ product.description }}</h5>
+        <div class="dates">
+            <h6>{{ product.created_date }}</h6>
+            <h6>{{ product.modified_date }}</h6>
+        </div>
+        <p class="comments_title">Comments</p>
+        <form action="/products/{{ product.id }}/" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Add Review">
+        </form>
+        <div class="comments">
+            {% for comment in comments %}
+                <div class="comment_block">
+                    <h6>{{ comment.text }}</h6>
                 </div>
             {% endfor %}
         </div>
     </div>
+
 {% endblock %}
