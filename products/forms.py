@@ -1,5 +1,5 @@
 from django import forms
-from products.models import Review, Product
+from products.models import Product
 
 PRODUCT_CHOISES = (
     (product.id, product.title) for product in Product.objects.all()

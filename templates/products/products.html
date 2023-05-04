@@ -1,6 +1,11 @@
 {% extends 'layouts/index.html' %}
 
 {% block content %}
+    <div>
+        <form action="/products/" method="get">
+            <input type="text" name="search" value="">
+        </form>
+    </div>
     <div style="display: flex; justify-content: space-between; flex-wrap: wrap">
         {% for product in products %}
             <div class="card" style="width: 18rem;">
@@ -12,4 +17,13 @@
             </div>
 
         {% endfor %}
+    <div>
+        {% for page in max_page %}
+            <a href="/posts/?page={{ page }} {% if hastag_id %}&hashtag_id={{ hastag_id }}{% endif %}{% if search_text %}&search={{ search_text }}{% endif %}">
+                <button style="width: 25px; height: 25px">{{ page }}</button>
+            </a>
+        {% endfor %}
+
+
+    </div>
 {% endblock %}

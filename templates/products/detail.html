@@ -8,24 +8,29 @@
             margin-left: 10%;
 
         }
+
         .product > img {
             width: 30%;
             margin-left: 33%;
         }
+
         .dates {
             display: flex;
             justify-content: space-between;
             margin-top: 40px;
         }
+
         .comments {
             margin-top: 20px;
         }
+
         .comment_block {
             padding: 10px;
             background: #1b1b1b;
             color: white;
             margin-bottom: 20px;
         }
+
         .comments_title {
             font-size: 30px;
             font-weight: bold;
@@ -44,12 +49,15 @@
             <h6>{{ product.created_date }}</h6>
             <h6>{{ product.modified_date }}</h6>
         </div>
-        <p class="comments_title">Comments</p>
-        <form action="/products/{{ product.id }}/" method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Add Review">
-        </form>
+        {% if not user.is_anonymous %}
+            <p class="comments_title">Comments</p>
+            <form action="/products/{{ product.id }}/" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Add Review">
+            </form>
+        {% endif %}
+
         <div class="comments">
             {% for comment in comments %}
                 <div class="comment_block">
